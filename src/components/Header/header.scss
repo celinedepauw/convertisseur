@@ -1,0 +1,16 @@
+@use 'src/styles/vars';
+
+.header {
+  background-color: vars.$mainColor;
+  color: vars.$clearColor;
+  padding: 4rem;
+
+  .title {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .euro {
+    padding: 1rem;
+  }
+}
