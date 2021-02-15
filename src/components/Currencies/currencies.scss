@@ -1,0 +1,29 @@
+@use 'src/styles/vars';
+
+.currencies {
+  color: vars.$mainColor;
+  text-align: left;
+  background-color: vars.$clearColor;
+  margin: 1rem;
+
+    .title {
+      font-weight: bold;
+      padding: 1rem;
+      border-bottom: solid 1px vars.$alternativeColor;
+    }
+
+    .all-currencies {
+
+      .currency {
+        padding: 1rem;
+        border-bottom: solid 1px vars.$alternativeColor;
+      }
+
+      .currency:hover {
+        background-color: vars.$alternativeColor;
+      }
+    }
+
+}
+
+
