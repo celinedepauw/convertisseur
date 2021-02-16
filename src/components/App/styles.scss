@@ -1,0 +1,10 @@
+@use 'src/styles/vars';
+
+.app {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: vars.$clearColor;
+  color: vars.$mainColor;
+}
+

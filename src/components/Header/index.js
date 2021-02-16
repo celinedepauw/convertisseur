@@ -3,10 +3,10 @@ import React from 'react' ;
 import './header.scss';
 
 const Header = () => (
-  <div className="header">
+  <header className="header">
     <h1 className="title">Converter</h1>
-    <p className="euro">1 euro</p>
-  </div>
+    <p className="amount">1 euro</p>
+  </header>
 );
 
 export default Header;
