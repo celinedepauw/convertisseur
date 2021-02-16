@@ -4,24 +4,32 @@
   color: vars.$mainColor;
   text-align: left;
   background-color: vars.$clearColor;
-  margin: 1rem;
+  max-height: 350px;
+  overflow-y: auto;
 
     .title {
-      font-weight: bold;
-      padding: 1rem;
-      border-bottom: solid 1px vars.$alternativeColor;
+      font-weight: vars.$fwBold;
+      padding: vars.$gutter;
+      margin-top: vars.$gutter;
     }
 
     .all-currencies {
 
       .currency {
-        padding: 1rem;
-        border-bottom: solid 1px vars.$alternativeColor;
+        padding: vars.$gutter;
+        border-top: solid 1px vars.$alternativeColor;
+        font-weight: vars.$fwMedium;
+
+        // quand la propriété indiquée change(ici background color), la nouvelle
+        //valeur est prise en compte, progressivement pdt le tps indiqué
+        transition: background-color vars.$slowTransition;
+
+        &:hover {
+          background-color: vars.$alternativeColor;
+          transition: background-color vars.$fastTransition;
+        }
       }
 
-      .currency:hover {
-        background-color: vars.$alternativeColor;
-      }
     }
 
 }
