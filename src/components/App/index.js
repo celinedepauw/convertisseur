@@ -18,7 +18,6 @@ Objectif : pouvoir afficher ou masquer les devises grâce à un bouton
 */
 
 // == Composant
-// eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
   constructor(props) {
     // on appelle le constructeur de React.Component en lui donnant les props
@@ -27,6 +26,22 @@ class App extends React.Component {
     this.state = {
       open: true,
     };
+    // on remplace la méthode handleClick par une version améliorée qui ne perdra
+    // pas le lien avec this
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // en javascript, si j'utilise une méthide en callback (ex pour un event),
+  // le lien vers "this" est perdu et this est undefined
+  // pour conserver le lien avec "this" dans la méthode,
+  // on le bind à la méthode
+  handleClick() {
+    const { open } = this.state;
+
+    // je décris les modifications à appliquer sur le state
+    this.setState({
+      open: !open,
+    });
   }
 
   render() {
@@ -54,14 +69,9 @@ class App extends React.Component {
         <Header />
         <button
           type="button"
-          onClick={() => {
-            // je décris les modifs à appliquer sur le state
-            this.setState({
-              // j'inverse la valeur de open (cela fonctionne car open est un booléen)
-              open: !open,
-            });
-          }}
-        >Toggle Currencies
+          onClick={this.handleClick}
+        >
+          Toggle currencies
         </button>
         {open && <Currencies currencies={currenciesList} />}
         <Result />
