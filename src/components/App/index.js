@@ -26,10 +26,16 @@ class App extends React.Component {
     // on créé le state du composant sous forme d'objet
     this.state = {
       open: true,
+      // montant à convertir
+      baseAmount: 1,
+      // devise sélectionnée
+      currency: 'United States Dollar',
     };
     // on remplace la méthode handleClick par une version améliorée qui ne perdra
     // pas le lien avec this
     this.handleClick = this.handleClick.bind(this);
+
+    this.computeAmount = this.computeAmount.bind(this);
   }
 
   // en javascript, si j'utilise une méthide en callback (ex pour un event),
@@ -43,6 +49,24 @@ class App extends React.Component {
     this.setState({
       open: !open,
     });
+  }
+
+  // retourne le montant converti à partir des informations du state
+  computeAmount() {
+    const { baseAmount, currency } = this.state;
+
+    // récupérer le taux correspondant à la devise sélectionnée
+    const currencyData = currenciesList.find((data) => data.name === currency);
+
+    // multiplier le taux par le montant de base
+    const result = currencyData.rate * baseAmount;
+
+    // arrondir à 2 décimales
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed
+    const roundedResult = result.toFixed(2);
+
+    // retourner le résultat
+    return roundedResult;
   }
 
   render() {
@@ -63,14 +87,16 @@ class App extends React.Component {
     // ou :
     // const { open } = this.state;
 
-    const { open } = this.state;
+    const { open, currency } = this.state;
+
+    const result = this.computeAmount();
 
     return (
       <div className="app">
         <Header />
         <CustomButton open={open} manageClick={this.handleClick} />
         {open && <Currencies currencies={currenciesList} />}
-        <Result />
+        <Result value={result} currency={currency} />
       </div>
     );
   }

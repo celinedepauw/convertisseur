@@ -1,12 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './result.scss';
 
-const Result = () => (
+const Result = ({ currency, value }) => (
   <div className="result">
-    <h2 className="rate">1.09</h2>
-    <p className="current-currency">United USD</p>
+    <h2 className="rate">{value}</h2>
+    <p className="current-currency">{currency}</p>
   </div>
 );
+
+Result.propTypes = {
+  currency: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+};
 
 export default Result;
