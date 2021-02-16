@@ -7,6 +7,7 @@ import './styles.scss';
 import Header from 'src/components/Header';
 import Currencies from 'src/components/Currencies';
 import Result from 'src/components/Result';
+import CustomButton from 'src/components/CustomButton';
 
 import currenciesList from 'src/data/currencies';
 
@@ -67,12 +68,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <Header />
-        <button
-          type="button"
-          onClick={this.handleClick}
-        >
-          Toggle currencies
-        </button>
+        <CustomButton open={open} manageClick={this.handleClick} />
         {open && <Currencies currencies={currenciesList} />}
         <Result />
       </div>
