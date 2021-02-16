@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 
 import './currencies.scss';
 
-const Currencies = () => (
+const Currencies = ({ currencies }) => (
   <div className="currencies">
     <h2 className="title">Currencies</h2>
     <ul className="all-currencies">
-      <li className="currency">Australian Dollar</li>
-      <li className="currency">Livre Sterling</li>
-      <li className="currency">Dinar Tunisien</li>
-      <li className="currency">Roupie Indonésienne</li>
+      {currencies.map((currency) => (
+        <li key={currency.name} className="currency">{currency.name}</li>
+      ))}
     </ul>
   </div>
 );
@@ -18,12 +17,11 @@ const Currencies = () => (
 Currencies.propTypes = {
   // currencies est un tableau d'objets
   // on précise les différentes propriétés de chaque objet
-  allCurrencies: PropTypes.arrayOf(
+  currencies: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      rate: PropTypes.number.isRequired,
     }).isRequired, // obligatoire qu'il y ait cette "forme"
-  ).isRequired, // la prop ingredients est obligatoire
+  ).isRequired, // la prop currencies est obligatoire
 };
 
 export default Currencies;

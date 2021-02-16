@@ -8,13 +8,15 @@ import Header from 'src/components/Header';
 import Currencies from 'src/components/Currencies';
 import Result from 'src/components/Result';
 
-import allCurrencies from 'src/data/currencies';
+import currenciesList from 'src/data/currencies';
 
 // == Composant
 const App = () => (
   <div className="app">
     <Header />
-    <Currencies />
+    <Currencies
+      currencies={currenciesList}
+    />
     <Result />
   </div>
 
