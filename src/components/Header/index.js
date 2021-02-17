@@ -5,7 +5,11 @@ import './header.scss';
 const Header = () => (
   <header className="header">
     <h1 className="title">Converter</h1>
-    <p className="amount">1 euro</p>
+    <input
+      type="text"
+      className="input"
+    />
+    <p className="amount">euros</p>
   </header>
 );
 
