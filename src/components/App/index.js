@@ -50,6 +50,8 @@ class App extends React.Component {
     this.setCurrency = this.setCurrency.bind(this);
 
     this.setInputSearch = this.setInputSearch.bind(this);
+
+    this.setInputAmount = this.setInputAmount.bind(this);
   }
 
   // appel après le 1er rendu du composant
@@ -95,6 +97,12 @@ class App extends React.Component {
   setInputSearch(newValue) {
     this.setState({
       inputSearch: newValue,
+    });
+  }
+
+  setInputAmount(newValue) {
+    this.setState({
+      baseAmount: newValue,
     });
   }
 
@@ -162,7 +170,12 @@ class App extends React.Component {
     // ou :
     // const { open } = this.state;
 
-    const { open, currency, inputSearch } = this.state;
+    const {
+      open,
+      currency,
+      inputSearch,
+      baseAmount,
+    } = this.state;
 
     const result = this.computeAmount();
 
@@ -171,7 +184,10 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <Header />
+        <Header
+          baseAmount={baseAmount}
+          setAmount={this.setInputAmount}
+        />
         <CustomButton open={open} manageClick={this.handleClick} />
         {open && (
           <Currencies
