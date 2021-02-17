@@ -19,6 +19,7 @@
         padding: vars.$gutter;
         border-top: solid 1px vars.$alternativeColor;
         font-weight: vars.$fwMedium;
+        cursor: pointer;
 
         // quand la propriété indiquée change(ici background color), la nouvelle
         //valeur est prise en compte, progressivement pdt le tps indiqué

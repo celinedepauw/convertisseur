@@ -25,6 +25,7 @@ class App extends React.Component {
     super(props);
     // on créé le state du composant sous forme d'objet
     this.state = {
+      // indique si les devises sont affichées
       open: true,
       // montant à convertir
       baseAmount: 1,
@@ -36,6 +37,8 @@ class App extends React.Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.computeAmount = this.computeAmount.bind(this);
+
+    this.setCurrency = this.setCurrency.bind(this);
   }
 
   // en javascript, si j'utilise une méthide en callback (ex pour un event),
@@ -49,6 +52,13 @@ class App extends React.Component {
     this.setState({
       open: !open,
     });
+  }
+
+  // mettre à jour la devise dans le state
+  setCurrency(newCurrencyName) {
+    this.setState({
+      currency: newCurrencyName,
+    })
   }
 
   // retourne le montant converti à partir des informations du state
@@ -95,7 +105,12 @@ class App extends React.Component {
       <div className="app">
         <Header />
         <CustomButton open={open} manageClick={this.handleClick} />
-        {open && <Currencies currencies={currenciesList} />}
+        {open && (
+          <Currencies 
+          currencies={currenciesList} 
+          handleClickOnCurrency={this.setCurrency} 
+          />
+          )}
         <Result value={result} currency={currency} />
       </div>
     );

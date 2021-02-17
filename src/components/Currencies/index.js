@@ -3,12 +3,21 @@ import PropTypes from 'prop-types';
 
 import './currencies.scss';
 
-const Currencies = ({ currencies }) => (
+const Currencies = ({ currencies, handleClickOnCurrency }) => (
   <div className="currencies">
     <h2 className="title">Currencies</h2>
     <ul className="all-currencies">
       {currencies.map((currency) => (
-        <li key={currency.name} className="currency">{currency.name}</li>
+        <li 
+        key={currency.name} 
+        className="currency"
+        onClick={() => {
+          //console.log('clic');
+          handleClickOnCurrency(currency.name);
+        }}
+        >
+        {currency.name}
+        </li>
       ))}
     </ul>
   </div>
@@ -22,6 +31,8 @@ Currencies.propTypes = {
       name: PropTypes.string.isRequired,
     }).isRequired, // obligatoire qu'il y ait cette "forme"
   ).isRequired, // la prop currencies est obligatoire
+  // paramètre : nom de la nouvelle devise
+  handleClickOnCurrency: PropTypes.func.isRequired,
 };
 
 export default Currencies;
