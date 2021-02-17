@@ -52,6 +52,25 @@ class App extends React.Component {
     this.setInputSearch = this.setInputSearch.bind(this);
   }
 
+  // appel après le 1er rendu du composant
+  componentDidMount() {
+    console.log('[App] componentDidMount');
+    this.updateTitle();
+  }
+
+  // https://fr.reactjs.org/docs/react-component.html#componentdidupdate
+  // componentDidUpdate a accès aux props et au state qu'il y avait avant la
+  // mise à jour qui a engendré le nouveau rendu
+  componentDidUpdate(prevProps, prevState) {
+    console.log('[App] componentDidUpdate');
+
+    // mise à jour du titre seulement si la devise a changé
+    // eslint-disable-next-line react/destructuring-assignment
+    if (prevState.currency !== this.state.currency) {
+      this.updateTitle();
+    }
+  }
+
   // en javascript, si j'utilise une méthide en callback (ex pour un event),
   // le lien vers "this" est perdu et this est undefined
   // pour conserver le lien avec "this" dans la méthode,
@@ -69,26 +88,27 @@ class App extends React.Component {
   setCurrency(newCurrencyName) {
     this.setState({
       currency: newCurrencyName,
-    })
+    });
   }
 
   // méthode qui met à jour inputSearch dans le state
   setInputSearch(newValue) {
     this.setState({
       inputSearch: newValue,
-    })
+    });
   }
 
-  // retourne les devises filtrées en fonction du champ de Recherche
+  // retourne les devises filtrées en fonction du champ de recherche
   getFilteredCurrencies() {
     const { inputSearch } = this.state;
 
     let filteredCurrencies = currenciesList;
 
-    // si le champ de recherche est vide, on retourne toutes les devise sélectionnée
+    // si le champ de recherche n'est pas vide, on filtre les devises
     if (inputSearch.length > 0) {
       // faire le filtrage
       filteredCurrencies = currenciesList.filter((currency) => {
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase
         const loweredInputSearch = inputSearch.toLowerCase();
         const loweredCurrencyName = currency.name.toLowerCase();
 
@@ -98,7 +118,7 @@ class App extends React.Component {
     }
 
     return filteredCurrencies;
-}
+  }
 
   // retourne le montant converti à partir des informations du state
   computeAmount() {
@@ -116,6 +136,12 @@ class App extends React.Component {
 
     // retourner le résultat
     return roundedResult;
+  }
+
+  // mise à jour du titre de la page
+  updateTitle() {
+    const { currency } = this.state;
+    document.title = `Converter - ${currency}`;
   }
 
   render() {

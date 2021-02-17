@@ -3,34 +3,62 @@ import PropTypes from 'prop-types';
 
 import './currencies.scss';
 
-const Currencies = ({ currencies, handleClickOnCurrency, search, setSearch }) => (
-  <div className="currencies">
-    <input
-      type="text"
-      placeholder="Recherche"
-      className="search"
-      value={search}
-      onChange={(event) => {
-        //console.log(event.target.value);
-        setSearch(event.target.value);
-      }}
-      />
-    <ul className="all-currencies">
-      {currencies.map((currency) => (
-        <li 
-        key={currency.name} 
-        className="currency"
-        onClick={() => {
-          //console.log('clic');
-          handleClickOnCurrency(currency.name);
-        }}
-        >
-        {currency.name}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+class Currencies extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('[Currencies] Constructor');
+  }
+
+  componentDidMount() {
+    console.log('[Currencies] componentDidMount');
+  }
+
+  componentDidUpdate() {
+    console.log('[Currencies] componentDidUpdate');
+  }
+
+  componentWillUnmount() {
+    console.log('[Currencies] componentWillUnmount');
+  }
+
+  render() {
+    console.log('[Currencies] render');
+    const {
+      currencies,
+      handleClickOnCurrency,
+      search,
+      setSearch,
+    } = this.props;
+    return (
+      <div className="currencies">
+        <input
+          type="text"
+          placeholder="Recherche"
+          className="search"
+          value={search}
+          onChange={(event) => {
+            //console.log(event.target.value);
+            setSearch(event.target.value);
+          }}
+        />
+        <ul className="all-currencies">
+          {currencies.map((currency) => (
+            <li
+              key={currency.name}
+              className="currency"
+              onClick={() => {
+              //console.log('clic');
+                handleClickOnCurrency(currency.name);
+              }}
+            >
+              {currency.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 Currencies.propTypes = {
   // currencies est un tableau d'objets
