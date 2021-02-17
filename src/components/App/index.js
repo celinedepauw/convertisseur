@@ -38,7 +38,8 @@ class App extends React.Component {
       baseAmount: 1,
       // devise sélectionnée
       currency: 'United States Dollar',
-      //
+      // contenu du champ de recherche, valeur vide à l'initialisation
+      inputSearch: '',
     };
     // on remplace la méthode handleClick par une version améliorée qui ne perdra
     // pas le lien avec this
@@ -47,6 +48,8 @@ class App extends React.Component {
     this.computeAmount = this.computeAmount.bind(this);
 
     this.setCurrency = this.setCurrency.bind(this);
+
+    this.setInputSearch = this.setInputSearch.bind(this);
   }
 
   // en javascript, si j'utilise une méthide en callback (ex pour un event),
@@ -68,6 +71,34 @@ class App extends React.Component {
       currency: newCurrencyName,
     })
   }
+
+  // méthode qui met à jour inputSearch dans le state
+  setInputSearch(newValue) {
+    this.setState({
+      inputSearch: newValue,
+    })
+  }
+
+  // retourne les devises filtrées en fonction du champ de Recherche
+  getFilteredCurrencies() {
+    const { inputSearch } = this.state;
+
+    let filteredCurrencies = currenciesList;
+
+    // si le champ de recherche est vide, on retourne toutes les devise sélectionnée
+    if (inputSearch.length > 0) {
+      // faire le filtrage
+      filteredCurrencies = currenciesList.filter((currency) => {
+        const loweredInputSearch = inputSearch.toLowerCase();
+        const loweredCurrencyName = currency.name.toLowerCase();
+
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
+        return loweredCurrencyName.includes(loweredInputSearch);
+      });
+    }
+
+    return filteredCurrencies;
+}
 
   // retourne le montant converti à partir des informations du state
   computeAmount() {
@@ -105,20 +136,25 @@ class App extends React.Component {
     // ou :
     // const { open } = this.state;
 
-    const { open, currency } = this.state;
+    const { open, currency, inputSearch } = this.state;
 
     const result = this.computeAmount();
+
+    // déterminer les devises à afficher
+    const filteredCurrencies = this.getFilteredCurrencies();
 
     return (
       <div className="app">
         <Header />
         <CustomButton open={open} manageClick={this.handleClick} />
         {open && (
-          <Currencies 
-          currencies={currenciesList} 
-          handleClickOnCurrency={this.setCurrency} 
+          <Currencies
+            currencies={filteredCurrencies} 
+            handleClickOnCurrency={this.setCurrency}
+            search={inputSearch}
+            setSearch={this.setInputSearch}
           />
-          )}
+        )}
         <Result value={result} currency={currency} />
       </div>
     );

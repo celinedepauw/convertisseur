@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 
 import './currencies.scss';
 
-const Currencies = ({ currencies, handleClickOnCurrency }) => (
+const Currencies = ({ currencies, handleClickOnCurrency, search, setSearch }) => (
   <div className="currencies">
     <input
       type="text"
       placeholder="Recherche"
       className="search"
+      value={search}
       onChange={(event) => {
-        console.log(event.target.value);
+        //console.log(event.target.value);
+        setSearch(event.target.value);
       }}
       />
     <ul className="all-currencies">
@@ -40,6 +42,9 @@ Currencies.propTypes = {
   ).isRequired, // la prop currencies est obligatoire
   // paramètre : nom de la nouvelle devise
   handleClickOnCurrency: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
+  // paramètre: nouvelle valeur
+  setSearch: PropTypes.func.isRequired,
 };
 
 export default Currencies;
