@@ -12,11 +12,18 @@ import CustomButton from 'src/components/CustomButton';
 import currenciesList from 'src/data/currencies';
 
 /*
-Objectif : pouvoir afficher ou masquer les devises grâce à un bouton
-- affichage conditionnel de Currencies (par rapport à une variable)
-- mise en place d'un bouton
-- "connecter" l'action du bouton avec la variable pour modifier l'affichage
+Objectif : pouvoir filtrer les devises
+- ajouter un input dans Currencies
+- prendre en compte la saisie à chaque caractère tapé
+- fournir la nouvelle valeur au composant App
+- appliquer un filtre sur les devises (dans App), et fournir la nouvelle liste à Currencies
 */
+
+/*
+Champ contrôlé :
+https://fr.reactjs.org/docs/forms.html#controlled-components
+*/
+
 
 // == Composant
 class App extends React.Component {
@@ -31,6 +38,7 @@ class App extends React.Component {
       baseAmount: 1,
       // devise sélectionnée
       currency: 'United States Dollar',
+      //
     };
     // on remplace la méthode handleClick par une version améliorée qui ne perdra
     // pas le lien avec this

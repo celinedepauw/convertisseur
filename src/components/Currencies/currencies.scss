@@ -7,11 +7,18 @@
   max-height: 450px;
   overflow-y: auto;
 
-    .title {
-      font-weight: vars.$fwBold;
+    .search {
       padding: vars.$gutter;
       margin-top: vars.$gutter;
-    }
+      border: none;
+      width: 100%;
+      color: vars.$mainColor;
+      font-size: 1.2rem;
+
+      &::placeholder {
+        color: vars.$alternativeColor;
+      }
+  }
 
     .all-currencies {
 

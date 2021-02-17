@@ -5,7 +5,14 @@ import './currencies.scss';
 
 const Currencies = ({ currencies, handleClickOnCurrency }) => (
   <div className="currencies">
-    <h2 className="title">Currencies</h2>
+    <input
+      type="text"
+      placeholder="Recherche"
+      className="search"
+      onChange={(event) => {
+        console.log(event.target.value);
+      }}
+      />
     <ul className="all-currencies">
       {currencies.map((currency) => (
         <li 
